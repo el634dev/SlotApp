@@ -57,8 +57,10 @@ fun SlotAppScreen(modifier: Modifier = Modifier) {
     val coroutine = rememberCoroutineScope()
     var count by remember { mutableIntStateOf(0) }
     var speed by remember { mutableFloatStateOf(1000f) }
+
     var isCounting by remember { mutableStateOf(false) }
     var countJob: Job? by remember { mutableStateOf(null) }
+    val countToThree = (count + 1) % 4
 
     Scaffold(
         topBar = {
@@ -88,7 +90,15 @@ fun SlotAppScreen(modifier: Modifier = Modifier) {
                 modifier = modifier.padding(top = 40.dp)
             )
             Text(
-                text = "$count",
+                text = "$countToThree",
+                fontSize = 120.sp
+            )
+            Text(
+                text = "$countToThree",
+                fontSize = 120.sp
+            )
+            Text(
+                text = "$countToThree",
                 fontSize = 120.sp
             )
             Column(
