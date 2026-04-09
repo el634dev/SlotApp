@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,6 +29,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.slotapp.ui.theme.SlotAppTheme
@@ -79,20 +81,27 @@ fun SlotAppScreen(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.SpaceBetween,
             modifier = modifier.fillMaxSize().padding(innerPadding)
         ) {
-            Text(
-                text = "Slot Machine",
-                fontSize = 60.sp,
-                modifier = modifier.padding(top = 40.dp)
+            Image(
+                painter = painterResource(id = R.drawable.cherry),
+                contentDescription = "Cherry"
             )
-            Text(
-                text = "$count",
-                fontSize = 120.sp
+            Image(
+                painter = painterResource(id = R.drawable.pear),
+                contentDescription = "Pear"
             )
-//            Column(
-//                horizontalAlignment = Alignment.CenterHorizontally
-//            ) {
-//
-//            }
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.grape),
+                    contentDescription = "Grape"
+                )
+
+                Image(
+                    painter = painterResource(id = R.drawable.strawberry),
+                    contentDescription = "Strawberry"
+                )
+            }
             if(isCounting) {
                 Button(
                     onClick = {
