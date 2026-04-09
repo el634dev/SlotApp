@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -62,7 +63,7 @@ fun SlotAppScreen(modifier: Modifier = Modifier) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Click Start") },
+                title = { Text(text = "To-Do List") },
                 actions = {
                     IconButton(
                         onClick = { countJob?.cancel() }
@@ -81,28 +82,29 @@ fun SlotAppScreen(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.SpaceBetween,
             modifier = modifier.fillMaxSize().padding(innerPadding)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.cherry),
-                contentDescription = "Cherry"
+            Text(
+                text = "Slot Machine",
+                fontSize = 60.sp,
+                modifier = modifier.padding(top = 40.dp)
             )
-            Image(
-                painter = painterResource(id = R.drawable.pear),
-                contentDescription = "Pear"
+            Text(
+                text = "$count",
+                fontSize = 120.sp
             )
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.grape),
-                    contentDescription = "Grape"
+                Slider(
+                    value = speed,
+                    onValueChange = { speed = it },
+                    valueRange = 100f..2000f,
+                    modifier = Modifier.padding(horizontal = 80.dp)
                 )
-
-                Image(
-                    painter = painterResource(id = R.drawable.strawberry),
-                    contentDescription = "Strawberry"
+                Text(
+                    text = "Speed: ${speed.toInt()}"
                 )
             }
-            if(isCounting) {
+            if (isCounting) {
                 Button(
                     onClick = {
                         isCounting = false
@@ -119,7 +121,7 @@ fun SlotAppScreen(modifier: Modifier = Modifier) {
                         isCounting = true
                         //  Runs counter in parallel with running the app
                         countJob = coroutine.launch(context = Dispatchers.Default) {
-                            while(count <= 3) {
+                            while (true) {
                                 //  Delay for a 1000
                                 delay(timeMillis = speed.toLong())
                                 count++
