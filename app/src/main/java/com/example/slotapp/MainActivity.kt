@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Info
@@ -99,18 +100,86 @@ fun SlotAppScreen(modifier: Modifier = Modifier) {
                 fontSize = 60.sp,
                 modifier = modifier.padding(top = 40.dp)
             )
-            Text(
-                text = "$countToThree",
-                fontSize = 120.sp
-            )
-            Text(
-                text = "$countToThree2",
-                fontSize = 120.sp
-            )
-            Text(
-                text = "$countToThree3",
-                fontSize = 120.sp
-            )
+            if(count == 0) {
+                Image(
+                    painter = painterResource(id = R.drawable.cherry),
+                    contentDescription = "Cherry",
+                    modifier = modifier.size(100.dp)
+                )
+            } else if(count == 1) {
+                Image(
+                    painter = painterResource(id = R.drawable.pear),
+                    contentDescription = "Pear",
+                    modifier = modifier.size(100.dp)
+                )
+            } else if(count == 2){
+                Image(
+                    painter = painterResource(id = R.drawable.grape),
+                    contentDescription = "Grape",
+                    modifier = modifier.size(100.dp)
+                )
+            } else if(count == 3) {
+                Image(
+                    painter = painterResource(id = R.drawable.strawberry),
+                    contentDescription = "Grape",
+                    modifier = modifier.size(100.dp)
+                )
+            }
+            // --------------------------------------------------
+            // --------------* COUNT 2 *-----------------
+            if(count2 == 0) {
+                Image(
+                    painter = painterResource(id = R.drawable.cherry),
+                    contentDescription = "Cherry",
+                    modifier = modifier.size(100.dp)
+                )
+            } else if(count2== 1) {
+                Image(
+                    painter = painterResource(id = R.drawable.pear),
+                    contentDescription = "Pear",
+                    modifier = modifier.size(100.dp)
+                )
+            } else if(count2 == 2){
+                Image(
+                    painter = painterResource(id = R.drawable.grape),
+                    contentDescription = "Grape",
+                    modifier = modifier.size(100.dp)
+                )
+            } else if(count2 == 3) {
+                Image(
+                    painter = painterResource(id = R.drawable.strawberry),
+                    contentDescription = "Grape",
+                    modifier = modifier.size(100.dp)
+                )
+            }
+            // --------------------------------------------------
+            // --------------* COUNT 3 *-------------------
+            if(count3 == 0) {
+                Image(
+                    painter = painterResource(id = R.drawable.cherry),
+                    contentDescription = "Cherry",
+                    modifier = modifier.size(100.dp)
+                )
+            } else if(count3 == 1) {
+                Image(
+                    painter = painterResource(id = R.drawable.pear),
+                    contentDescription = "Pear",
+                    modifier = modifier.size(100.dp)
+                )
+            } else if(count3 == 2) {
+                Image(
+                    painter = painterResource(id = R.drawable.grape),
+                    contentDescription = "Grape",
+                    modifier = modifier.size(100.dp)
+                )
+            } else if(count3 == 3) {
+                Image(
+                    painter = painterResource(id = R.drawable.strawberry),
+                    contentDescription = "Grape",
+                    modifier = modifier.size(100.dp)
+                )
+            }
+            // --------------------------------------------------
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
