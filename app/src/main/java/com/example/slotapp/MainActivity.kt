@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -56,11 +57,19 @@ class MainActivity : ComponentActivity() {
 fun SlotAppScreen(modifier: Modifier = Modifier) {
     val coroutine = rememberCoroutineScope()
     var count by remember { mutableIntStateOf(0) }
-    var speed by remember { mutableFloatStateOf(1000f) }
+    var count2 by remember { mutableIntStateOf(0) }
 
+    var count3 by remember { mutableIntStateOf(0) }
+    var speed by remember { mutableFloatStateOf(1000f) }
     var isCounting by remember { mutableStateOf(false) }
+
     var countJob: Job? by remember { mutableStateOf(null) }
     val countToThree = (count + 1) % 4
+    val countToThree2 = (count2 + 1) % 4
+
+    val countToThree3 = (count3 + 1) % 4
+    var countJob2: Job? by remember { mutableStateOf(null) }
+    var countJob3: Job? by remember { mutableStateOf(null) }
 
     Scaffold(
         topBar = {
@@ -71,8 +80,8 @@ fun SlotAppScreen(modifier: Modifier = Modifier) {
                         onClick = { countJob?.cancel() }
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Clear,
-                            contentDescription = "Clear to-do list"
+                            imageVector = Icons.Default.Info,
+                            contentDescription = "What app does"
                         )
                     }
                 }
@@ -94,11 +103,11 @@ fun SlotAppScreen(modifier: Modifier = Modifier) {
                 fontSize = 120.sp
             )
             Text(
-                text = "$countToThree",
+                text = "$countToThree2",
                 fontSize = 120.sp
             )
             Text(
-                text = "$countToThree",
+                text = "$countToThree3",
                 fontSize = 120.sp
             )
             Column(
@@ -114,34 +123,41 @@ fun SlotAppScreen(modifier: Modifier = Modifier) {
                     text = "Speed: ${speed.toInt()}"
                 )
             }
-            if (isCounting) {
-                Button(
-                    onClick = {
-                        isCounting = false
-                        // Can be null and not call the function
-                        countJob?.cancel()
-                    },
-                    modifier = Modifier.padding(bottom = 40.dp)
-                ) {
-                    Text(text = "Stop")
-                }
-            } else {
-                Button(
-                    onClick = {
-                        isCounting = true
-                        //  Runs counter in parallel with running the app
-                        countJob = coroutine.launch(context = Dispatchers.Default) {
-                            while (true) {
-                                //  Delay for a 1000
-                                delay(timeMillis = speed.toLong())
-                                count++
-                            }
-                        }
-                    },
-                    modifier = Modifier.padding(bottom = 40.dp)
-                ) {
-                    Text(text = "Start!")
-                }
+            Button(
+                onClick = {
+                    // Can be null and not call the function
+                   if (isCounting) {
+                       countJob?.cancel(); countJob2?.cancel(); countJob3?.cancel()
+                   } else {
+                       countJob = coroutine.launch {
+                           while (true) {
+                               //  Delay for a 1000
+                               delay(timeMillis = speed.toLong())
+                               count++
+                           }
+                       }
+                      // -----------------* COROUTINE 2 *---------------------
+                       countJob2 = coroutine.launch {
+                           while (true) {
+                               //  Delay for a 1000
+                               delay(timeMillis = speed.toLong() + 150)
+                               count2++
+                           }
+                       }
+                       // -----------------* COROUTINE 3 *---------------------
+                       countJob3 = coroutine.launch {
+                           while (true) {
+                               //  Delay for a 1000
+                               delay(timeMillis = speed.toLong() + 300)
+                               count3++
+                           }
+                       }
+                   }
+                    isCounting = !isCounting
+                },
+                modifier = Modifier.padding(bottom = 40.dp)
+            ) {
+                Text(text = if(isCounting) "Stop" else "Start")
             }
         }
     }
