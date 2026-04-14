@@ -32,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.slotapp.ui.theme.SlotAppTheme
@@ -154,11 +155,13 @@ fun SlotAppScreen(modifier: Modifier = Modifier) {
                        }
                    }
                     isCounting = !isCounting
+
                 },
                 modifier = Modifier.padding(bottom = 40.dp)
             ) {
                 Text(text = if(isCounting) "Stop" else "Start")
             }
+            Text(text = if(count == count2 && count2 == count3) "You won!" else "Keep spinning!")
         }
     }
 }
