@@ -78,7 +78,7 @@ fun SlotMachineScreen(modifier: Modifier = Modifier) {
                 title = { Text(text = "Slot Machine") },
                 actions = {
                     IconButton(
-                        onClick = { }
+                        onClick = {}
                     ) {
                         Icon(
                             imageVector = Icons.Default.Info,
