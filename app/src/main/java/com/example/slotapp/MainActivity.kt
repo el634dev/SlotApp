@@ -35,6 +35,9 @@ import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.slotapp.ui.theme.SlotAppTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -75,7 +78,7 @@ fun SlotMachineScreen(modifier: Modifier = Modifier) {
                 title = { Text(text = "Slot Machine") },
                 actions = {
                     IconButton(
-                        onClick = {}
+                        onClick = { }
                     ) {
                         Icon(
                             imageVector = Icons.Default.Info,
@@ -218,5 +221,38 @@ fun SlotImage(count: Int){
                 modifier = Modifier.size(100.dp)
             )
         }
+    }
+}
+
+@Composable
+fun AppNavigation() {
+    val navController = rememberNavController()
+
+    NavHost(navController = navController, startDestination = "home") {
+        composable("home") {
+            InfoScreen(onNavigateToDetail = { navController.navigate("detail") })
+        }
+
+        composable("back") {
+            BackHomeScreen(onBack = { navController.popBackStack() })
+        }
+    }
+}
+
+@Composable
+fun InfoScreen(onNavigateToDetail: () -> Unit) {
+    Button(
+        onClick = onNavigateToDetail
+    ) {
+        Text("Info Screen")
+    }
+}
+
+@Composable
+fun BackHomeScreen(onBack: () -> Unit) {
+    Button(
+        onClick = onBack
+    ) {
+        Text("Back to Home")
     }
 }
