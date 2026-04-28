@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SlotMachineScreen(modifier: Modifier = Modifier) {
+fun SlotMachineScreen() {
     val coroutine = rememberCoroutineScope()
     val count = remember { mutableIntStateOf(0) }
     val count2 = remember { mutableIntStateOf(0) }
@@ -72,6 +72,21 @@ fun SlotMachineScreen(modifier: Modifier = Modifier) {
     var isRunning  by remember { mutableStateOf(false) }
 
     var message by remember { mutableStateOf("") }
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "home") {
+        composable("info") {
+           InfoScreen(onNavigateToInfo = {
+               navController.navigate("info")
+           })
+        }
+
+        composable("back") {
+            BackHomeScreen (onBack = {
+                navController.popBackStack()
+            })
+        }
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -90,7 +105,7 @@ fun SlotMachineScreen(modifier: Modifier = Modifier) {
         }
     ) { innerPadding ->
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -103,7 +118,7 @@ fun SlotMachineScreen(modifier: Modifier = Modifier) {
             )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = modifier
+                modifier = Modifier
             ) {
                 SlotImage(count = count.intValue)
                 SlotImage(count = count2.intValue)
@@ -225,24 +240,9 @@ fun SlotImage(count: Int){
 }
 
 @Composable
-fun AppNavigation() {
-    val navController = rememberNavController()
-
-    NavHost(navController = navController, startDestination = "home") {
-        composable("home") {
-            InfoScreen(onNavigateToDetail = { navController.navigate("detail") })
-        }
-
-        composable("back") {
-            BackHomeScreen(onBack = { navController.popBackStack() })
-        }
-    }
-}
-
-@Composable
-fun InfoScreen(onNavigateToDetail: () -> Unit) {
+fun InfoScreen(onNavigateToInfo: () -> Unit) {
     Button(
-        onClick = onNavigateToDetail
+        onClick = onNavigateToInfo
     ) {
         Text("Info Screen")
     }
